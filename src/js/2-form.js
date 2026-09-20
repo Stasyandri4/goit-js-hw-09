@@ -4,25 +4,28 @@ const formData = {
 };
 
 const form = document.querySelector('.feedback-form');
+const email = form.querySelector('input');
+const message = form.querySelector('textarea');
+
 const LS_KEY = 'feedback-form-state';
 
 form.addEventListener('input', handleInput);
 form.addEventListener('submit', handleSubmit);
 
+checkFields();
+
 function handleInput(event) {
-  checkFields();
-  formData.email = event.currentTarget.email.value.trim();
-  formData.message = event.currentTarget.message.value.trim();
+  formData.email = email.value.trim();
+  formData.message = message.value.trim();
 
   localStorage.setItem(LS_KEY, JSON.stringify(formData));
 }
 
-function checkFields() {
-  const localData = localStorage.getItem(LS_KEY);
-  const parseData = JSON.parse(localData);
-  if (localData) {
-    event.currentTarget.email.value = parseData.email;
-    event.currentTarget.message.value = parseData.message;
+function checkFields(event) {
+  const parseData = JSON.parse(localStorage.getItem(LS_KEY));
+  if (parseData) {
+    email.value = parseData.email;
+    message.value = parseData.message;
   }
 }
 
@@ -32,9 +35,12 @@ function handleSubmit(event) {
     event.currentTarget.message.value === ''
   ) {
     alert('Fill please all fields');
+    return;
   }
   event.preventDefault();
   console.log(formData);
+  formData.email = '';
+  formData.message = '';
   localStorage.removeItem(LS_KEY);
   event.target.reset();
 }

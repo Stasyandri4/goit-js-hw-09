@@ -93,4 +93,4 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-lightbox.on('show.simplelightbox');
+lightbox.on('show.simplelightbox', function () {});
