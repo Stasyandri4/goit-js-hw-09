@@ -23,6 +23,8 @@ function handleInput(event) {
 
 function checkFields(event) {
   const parseData = JSON.parse(localStorage.getItem(LS_KEY));
+  formData.email = parseData.email;
+  formData.message = parseData.message;
   if (parseData) {
     email.value = parseData.email;
     message.value = parseData.message;
@@ -30,14 +32,15 @@ function checkFields(event) {
 }
 
 function handleSubmit(event) {
+  event.preventDefault();
   if (
     event.currentTarget.email.value === '' ||
     event.currentTarget.message.value === ''
   ) {
     alert('Fill please all fields');
-    return;
+    return event.preventDefault();
   }
-  event.preventDefault();
+
   console.log(formData);
   formData.email = '';
   formData.message = '';
