@@ -9,10 +9,9 @@ const message = form.querySelector('textarea');
 
 const LS_KEY = 'feedback-form-state';
 
+checkFields();
 form.addEventListener('input', handleInput);
 form.addEventListener('submit', handleSubmit);
-
-checkFields();
 
 function handleInput(event) {
   formData.email = email.value.trim();
@@ -23,11 +22,13 @@ function handleInput(event) {
 
 function checkFields(event) {
   const parseData = JSON.parse(localStorage.getItem(LS_KEY));
-  formData.email = parseData.email;
-  formData.message = parseData.message;
+
   if (parseData) {
     email.value = parseData.email;
     message.value = parseData.message;
+
+    formData.email = parseData.email;
+    formData.message = parseData.message;
   }
 }
 
